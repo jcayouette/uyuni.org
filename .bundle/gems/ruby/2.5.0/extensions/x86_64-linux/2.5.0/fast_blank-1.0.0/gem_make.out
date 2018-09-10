@@ -1,0 +1,15 @@
+current directory: /home/coyote/workspace/antora.org/.bundle/gems/ruby/2.5.0/gems/fast_blank-1.0.0/ext/fast_blank
+/usr/bin/ruby.ruby2.5 -r ./siteconf20180826-10059-1wk123p.rb extconf.rb
+creating Makefile
+
+current directory: /home/coyote/workspace/antora.org/.bundle/gems/ruby/2.5.0/gems/fast_blank-1.0.0/ext/fast_blank
+make "DESTDIR=" clean
+
+current directory: /home/coyote/workspace/antora.org/.bundle/gems/ruby/2.5.0/gems/fast_blank-1.0.0/ext/fast_blank
+make "DESTDIR="
+compiling fast_blank.c
+linking shared-object fast_blank.so
+
+current directory: /home/coyote/workspace/antora.org/.bundle/gems/ruby/2.5.0/gems/fast_blank-1.0.0/ext/fast_blank
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 fast_blank.so ./.gem.20180826-10059-zz6rf0

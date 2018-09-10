@@ -1,0 +1,759 @@
+= AsciiDoc Extension for Middleman (powered by Asciidoctor)
+Dan Allen <https://github.com/mojavelinux[@mojavelinux]>
+v1.0.0, 2018-01-28
+// Settings:
+:idprefix:
+:idseparator: -
+:hide-uri-scheme:
+ifndef::env-github[:icons: font]
+ifdef::env-github,env-browser[]
+:toc: preamble
+:toclevels: 1
+endif::[]
+ifdef::env-github[]
+:status:
+:outfilesuffix: .adoc
+:!toc-title:
+:important-caption: :exclamation:
+:note-caption: :paperclip:
+:tip-caption: :bulb:
+:warning-caption: :warning:
+endif::[]
+// URIs:
+:uri-repo: https://github.com/middleman/middleman-asciidoc
+:uri-issues: https://github.com/middleman/middleman-asciidoc/issues
+:uri-middleman: https://middlemanapp.com
+:uri-middleman-forum: https://forum.middlemanapp.com
+:uri-asciidoc: http://asciidoc.org
+:uri-asciidoctor: http://asciidoctor.org
+:uri-asciidoctor-diagram: {uri-asciidoctor}/docs/asciidoctor-diagram
+:uri-asciidoctor-discuss: http://discuss.asciidoctor.org
+:uri-gem: https://rubygems.org/gems/middleman-asciidoc
+:uri-tilt: https://github.com/rtomayko/tilt
+:uri-yaml: https://en.wikipedia.org/wiki/YAML
+:uri-help-pr: https://help.github.com/articles/using-pull-requests
+:badge-gem: https://img.shields.io/gem/v/middleman-asciidoc.svg?label=gem
+:uri-build: https://travis-ci.org/middleman/middleman-asciidoc
+:badge-build: https://img.shields.io/travis/middleman/middleman-asciidoc/master.svg
+//:uri-codequality: https://codeclimate.com/github/middleman/middleman-asciidoc
+//:badge-codequality: https://codeclimate.com/github/middleman/middleman-asciidoc.png
+
+ifdef::status[]
+image:{badge-gem}[Gem Version Badge,link={uri-gem}]
+image:{badge-build}[Build Status Badge,link={uri-build}]
+//image:{badge-codequality}[Code Quality Badge,link={uri-codequality}]
+endif::[]
+
+Middleman AsciiDoc (gem: *middleman-asciidoc*) is an extension for the {uri-middleman}[Middleman] static site generator that adds support for the {uri-asciidoc}[AsciiDoc] lightweight markup language.
+Specifically, this extension converts AsciiDoc files in your site source to HTML pages.
+This conversion is performed using {uri-asciidoctor}[Asciidoctor] by default.
+
+IMPORTANT: This extension is designed for Middleman >= 4.0.0.
+Prior to Middleman 4, AsciiDoc support was bundled with Middleman.
+
+== Installation
+
+If you're just getting started, first install the *middleman* gem.
+
+ $ gem install middleman
+
+Then, generate a new project:
+
+ $ middleman init MY_PROJECT
+
+The project will be created in the MY_PROJECT directory.
+
+If you're working with an existing project, you can skip the previous steps.
+
+Next, add the gem for this extension to your project's [.path]_Gemfile_.
+
+[source,ruby]
+----
+gem 'middleman-asciidoc'
+----
+
+Finally, run Bundler to install the dependencies using the `bundle` command:
+
+ $ bundle
+
+You're now ready to activate this extension and begin putting it to work.
+
+== Activation and Configuration
+
+To activate the AsciiDoc extension, add the following line to the [.path]_config.rb_ file for your site:
+
+[source,ruby]
+----
+activate :asciidoc
+----
+
+You can also pass options to the extension.
+One way is to pass a Hash of options as the second argument of `activate`.
+In this case, the option keys must be expressed as symbols.
+
+Here's an example of how to set the `attributes` option for this extension, which assigns attributes to the underlying Asciidoctor processor:
+
+[source,ruby]
+----
+activate :asciidoc, attributes: ['source-highlighter=coderay']
+----
+
+Alternately, you can assign options directly to the extension object when using the block form of `activate`.
+In this case, the options are properties of the extension object.
+
+Here's how to assign the `attributes` option for this extension using the block form of `activate`:
+
+[source,ruby]
+----
+activate :asciidoc do |asciidoc|
+  asciidoc.attributes = ['source-highlighter=coderay']
+end
+----
+
+The following option keys can be used to configure this extension.
+With the exception of `layout`, these option keys map directly to options in the Asciidoctor API.
+
+attributes (type: Hash or String Array, default: {})::
+Custom AsciiDoc attributes to pass to the processor.
+The following built-in attributes are automatically appended to this collection.
+(You can remove a built-in attribute by passing a custom attribute with the corresponding name prefixed with `-`).
+
+* env=site
+* env-site
+* site-gen=middleman
+* site-gen-middleman
+* builder=middleman
+* builder-middleman
+* middleman-version=(value of `Middleman::VERSION` constant)
+* site-root=(app.root.to_s)
+* site-source=(app.source_dir.to_s)
+* site-destination=(app.root.to_s + / + app.config[:build_dir])
+* site-environment=(app.environment.to_s)
+* relfilesuffix=(path to index file, as configured, if directory indexes are enabled)
+* relfilesuffix=../ if directory indexes are enabled
+* imagesdir=(http_prefix + app.config[:images_dir])@
+ ** skipped if `-imagesdir` (soft unset) or `!imagesdir` (hard unset) is defined as a custom attribute
+ ** can be overridden by page, hence the trailing @
+* imagesoutdir=(imagesdir relative to site destination)
+
+backend (type: Symbol, default: :html5)::
+The moniker for a converter, which determines the output format to generate.
+
+base_dir (type: String, default: :docdir)::
+The base directory to use for the current AsciiDoc document.
+If not specified, defaults to the document directory (i.e., `:docdir`).
+To set the base directory to the source directory, use the keyword `:source` or the expression `app.source_dir`.
+To leave the base directory undefined, use the value `nil`.
+
+layout (type: String or Symbol, default: nil)::
+The name of the default layout for AsciiDoc-based pages (pages processed by this extension, not including blog articles if a blog layout is specified).
+
+safe (type: Symbol, default: :safe)::
+The safe mode level under which to run the AsciiDoc processor.
+
+template_dirs (type: String or String Array, default: nil)::
+One or more directory paths (relative to the site root) where Asciidoctor converter templates should be discovered.
+Asciidoctor templates can be used to customize the HTML generated for each node in the Asciidoctor document tree.
+
+template_engine (type: String or Symbol, default: nil)::
+The template engine filter to apply when scanning for Asciidoctor converter templates.
+For example, to only discover Slim templates, set this to `:slim`.
+
+template_engine_options (type: Hash, default: nil)::
+Additional options to pass to the template engine when invoking the Asciidoctor converter templates.
+Options must be indexed by the template engine name (e.g., `:slim`).
+
+TIP: The full set of options can be seen on your preview server's config page at the path [.path]_/__middleman/config/_.
+
+The following implicit attributes are passed to the AsciiDoc processor prior to the page being converted, making them available to both the AsciiDoc source and extensions:
+
+* outfile - the absolute path of the output (HTML) file
+* outdir - the absolute path of the directory containing the output file
+
+In addition to the `outdir` attribute, the `:to_dir` option is also passed to the AsciiDoc processor, and subsequently available on the parsed document object.
+This option may be useful for certain integrations, such as Asciidoctor Diagram.
+
+=== Configuring Specific Pages
+
+You can pass extra attributes and other options to the AsciiDoc processor for a given page (or set of pages) using the `:renderer_options` option of the `page` directive (where the "`renderer`" is the AsciiDoc processor):
+
+[source,ruby]
+----
+page 'manual', renderer_options: {
+  attributes: { 'sectanchors' => '' }
+}
+----
+
+NOTE: The first argument to the `page` directive is the page ID.
+The page ID is computed by starting with the path of the source file relative to the source directory, then removing the template extension (i.e., the AsciiDoc extension), then removing the `.html` extension, if present.
+For example, the page ID for both [.path]_home.adoc_ and [.path]_home.html.adoc_ is `home`.
+
+WARNING: Attributes passed to the page directive must be specified as a Hash and receive no additional processing.
+
+You can add extra attributes to a page more concisely using the `:attributes` option on the page directive:
+
+[source,ruby]
+----
+page 'manual', attributes: { 'sectanchors' => '' }
+----
+
+The `:attributes` option on the page directive takes precedence over the `:attributes` option in `:renderer_options`.
+
+=== Defining Additional Site Attributes
+
+Middleman doesn't have a predefined schema for site-related data, such as the title, url, and author.
+However, since this information is needed for most sites, authors end up defining one themselves.
+This section describes how to make this site-related information available to your AsciiDoc documents as attributes.
+
+To maintain consistently with integrations for other site generators, we'll use `site-` as the prefix for site-related attributes.
+For example, the site title will be named `site-title`.
+
+First, we assume you've created a data file named [.path]_site.yml_ in the data directory.
+For example:
+
+.data/site.yml
+[source,yml]
+----
+title: Site Title
+url: http://example.com
+description: An awesome site.
+author: Joe Cool
+----
+
+The information in this file is available via the variable path `app.data.site`.
+The next step is to convert this information into AsciiDoc attributes.
+
+Inside the activate block for the AsciiDoc extension, convert this data into attributes to pass to AsciiDoc, then assign the result to the `attributes` property of the extension.
+
+[source,ruby]
+----
+activate :asciidoc do |asciidoc|
+  attributes = {}
+  allowed_value_types = [String, Numeric, TrueClass, FalseClass, Date, Time]
+  app.data.site.inject(attributes) do |accum, (k, v)|
+    accum[%(site-#{k})] = v if allowed_value_types.detect {|type| type === v }
+    accum
+  end
+  asciidoc.attributes = attributes
+end
+----
+
+You can now access these attributes from any AsciiDoc document in the site.
+For example, to reference the site title, you'd use:
+
+[source,asciidoc]
+----
+{site-title}
+----
+
+If you want to support nested properties (e.g., `site.blog.title`), you can refactor the code above into a function you can call recursively.
+The convention is to flatten these paths into attribute names using the hyphen character (e.g., `site-blog-title`).
+
+== Creating Pages
+
+Each AsciiDoc file in the source directory (except for files that begin with `+_+` or which are located in a directory that begins with `+_+`) becomes a page in the site.
+AsciiDoc files can have the file extension `.adoc` or `.html.adoc`.
+These extensions are stripped and replaced with the value of the `outfilesuffix` attribute, which defaults to `.html`.
+
+NOTE: For details about how the file extension is substituted, see the discussion in {uri-issues}/7[issue #7].
+
+To add a page composed in AsciiDoc, simply add an AsciiDoc file that has one of the aforementioned AsciiDoc file extensions to the project source directory.
+
+.sample.adoc
+[source,asciidoc]
+....
+= Sample Page
+:page-layout: page
+:uri-asciidoctor: http://asciidoctor.org
+
+This is a sample page composed in AsciiDoc.
+The Middleman AsciiDoc extension converts it to HTML using {uri-asciidoctor}[Asciidoctor].
+
+[source,ruby]
+----
+puts "Hello, World!"
+----
+....
+
+=== Adding Custom Page Data
+
+AsciiDoc attributes defined in the document header whose names begin with `page-` are promoted to page data (aka front matter).
+The part of the name after the `page-` prefix is used as the entry's key (e.g., page-layout becomes layout).
+The value is parsed as {uri-yaml}[YAML] data (that which can be expressed in a single line).
+
+In addition to these explicit page attributes, the following AsciiDoc attributes are also promoted to page data:
+
+* doctitle (i.e., the document title) (becomes title)
+* author (becomes author.name)
+* email (becomes author.email or author.url)
+ ** if value matches the pattern `url[@username]`, author.username is also set
+* authors (converted to an Array of Author objects)
+* revdate (becomes date; value is converted to a Time object)
+* keywords (value is kept as a String)
+* description
+
+TIP: You can continue to specify page data using the front matter header.
+Keep in mind that the AsciiDoc `page-` attributes override matching entries in the front matter header.
+
+NOTE: If you specify a time zone in the value of the `revdate` attribute, that time zone is honored.
+Otherwise, the date specified is assumed to have the time zone set for the application.
+You can define the application time zone in [.path]_config.rb_ using `set :time_zone` (a setting shared with the blog extension).
+If you don't specify a time zone in the page's date or for the application, dates are assumed to be UTC.
+
+=== Specifying a Layout
+
+The most important of these page attributes is `page-layout`, which determines the layout that is applied to the page.
+Middleman will look for the first file that matches this root name under the source directory and use it as the layout.
+For example, if `page-layout` has the value `page`, Middleman might resolve a layout named [.path]_page.erb_.
+You can set the extension of the layout file using the `page-layout-engine` attribute.
+
+If a layout is not specified, or the value of the `page-layout` attribute is empty, the default layout for the site is used.
+
+You can set a default layout for all pages in [.path]_config.rb_ using:
+
+[source,ruby]
+----
+set :layout, :name_of_layout
+----
+
+Alternately, you can set a default layout just for AsciiDoc-based pages (pages processed by this extension) in [.path]_config.rb_ using:
+
+[source,ruby]
+----
+activate :asciidoc, layout: :name_of_layout
+----
+
+Finally, you can set the layout for a specific page or group of pages using the `page` directive.
+This is an alternate way to define front matter for a page.
+
+[source,ruby]
+----
+page 'home', layout: :name_of_layout
+----
+
+TIP: When you define the layout in [.path]_config.rb_, you can specify the value either as a String or a Symbol.
+
+If you don't set the layout in [.path]_config.rb_, the default layout is considered unset.
+(The one exception to this rule is the layout for blog articles, which is controlled by the configuration for the blog extension).
+
+AsciiDoc-based pages are configured to use the automatic layout by default (i.e., the `page-layout` attribute is set to blank).
+If you unset the `page-layout` attribute, the AsciiDoc processor will handle generating a standalone document (`header_footer: true`).
+In this case, the page will appear like an HTML file that is generated by the AsciiDoc processor directly.
+
+Here are the different ways to specify a layout:
+
+* `:page-layout:`, `:page-layout: _auto_layout`, or _not specified_ -- use the automatic layout (default: layout)
+* `:page-layout: custom` -- use the page layout named "`custom`" (e.g., [.path]_custom.erb_)
+* `:!page-layout:` or `:page-layout: false` -- generate a standalone HTML document
+* `:page-layout: ~` or `:page-layout: null` -- generate a page without a layout (don't wrap content in a layout)
+
+.Layout for blog posts
+WARNING: If you're using the Middleman Blog extension to write blog posts, the `layout` property on the blog configuration overrides the default layout, but you can still override that setting using the `page-layout` attribute in each post.
+
+==== Accessing the AsciiDoc Configuration From a Layout
+
+You can access the global configuration for the AsciiDoc extension from a layout template using the variable path `app.config.asciidoc` (Hash).
+
+For example, let's say you want to reference the location stored in the `imagesoutdir` attribute.
+You can do so in an ERB template using:
+
+----
+<%= app.config.asciidoc[:attributes]['imagesoutdir'] %>
+----
+
+Other processor options, such as `:safe`, are available from the `app.config.asciidoc` variable path.
+
+If you want to access the options passed to the AsciiDoc processor for the current page, use the variable path `current_page.options[:renderer_options]` (Hash) instead.
+
+For example, let's say you want to access the resolved base directory for the current page.
+You can do so in an ERB template using:
+
+----
+<%= current_page.options[:renderer_options][:base_dir] %>
+----
+
+Other processor options, such as `:attributes`, are available from the `current_page.options[:renderer_options]` variable path.
+
+==== Accessing the AsciiDoc Document From a Layout
+
+You can access the document model for the current AsciiDoc-based page from the page layout as follows:
+
+----
+<%= current_page.data.document %>
+----
+
+This object is an instance of `Asciidoctor::Document`.
+It can be used, for instance, to output a table of contents for the current page:
+
+----
+<% if (doc = current_page.data.document) %>
+<%= doc.converter.convert doc, 'outline', toclevels: 3 %>
+<% end %>
+----
+
+For more information about this API, refer to the http://www.rubydoc.info/gems/asciidoctor/Asciidoctor/Document[API documentation].
+
+=== Ignoring a Page
+
+In addition to the normal ignore filter in Middleman, you can also control whether a page is ignored from AsciiDoc.
+To mark a page as ignored from AsciiDoc, set the `page-ignored` attribute in the AsciiDoc document header to any value other than `false`, as follows:
+
+[source,asciidoc]
+----
+= Ignored Page
+:page-ignored:
+----
+
+Once this page attribute is detected, no further processing is performed on the document by this extension.
+
+=== Marking an Article as a Draft
+
+If you're using the Middleman Blog extension, you can mark an article as a draft so it does not get published.
+To do so, assign the value `false` the page attribute named `page-published` in the AsciiDoc document header, as follows:
+
+[source,asciidoc]
+----
+= Draft Article
+:page-published: false
+----
+
+This effectively sets the `published` key in the page data to `false`.
+Recall that the AsciiDoc extension converts the value of page attributes as a YAML value, which means the string literal "`false`" becomes the boolean value `false`.
+Middleman then knows not to publish this article.
+
+Another option is to set the date of the article way into the future.
+
+[source,asciidoc]
+----
+= Future Post
+Author Name
+3001-01-01
+----
+
+By default, the blog extension does not publish articles with a future date.
+
+=== Linking Between Pages
+
+You can link from one page to another using an {uri-asciidoctor}/docs/user-manual/#inter-document-cross-references[inter-document xref].
+Let's say you have the following two pages in the source directory:
+
+* about.adoc
+* team.adoc
+
+You can link from the about page to the team page using the following:
+
+[source,asciidoc]
+----
+Meet our <<team.adoc#,team>>.
+----
+
+The `.adoc#` suffix indicates the xref targets another page.
+The target is the path from the current page to the other page (a source-to-source reference).
+This reference is then converted to the following HTML:
+
+[source,html]
+----
+Meet our <a href="team.html">team</a>.
+----
+
+Of course, we're assuming there that the input maps 1-to-1 to the output.
+That assumption breaks down as soon as you enable directory indexes.
+
+When directory indexes are enabled, each page is moved into its own folder and renamed to index.html.
+So how does the xref work in that case?
+
+This extension provides built-in support for directory indexes.
+When the directory indexes extension is enabled, this extension automatically defines the `relfileprefix` and `relfilesuffix` attributes on the AsciiDoc document.
+The `relfilesuffix` attribute honors both the `:trailing_slash` and `:strip_index_file` options in Middleman.
+However, you have to make one change to your pages for these attributes to work with the xref macro.
+
+Below the document header (but *not in* the document header), you must assign the `outfilesuffix` attribute to the value of the `relfilesuffix` attribute.
+Here's an example:
+
+[source,asciidoc]
+----
+= About Us
+
+// ^ the previous blank line is required!
+\ifdef::relfilesuffix[:outfilesuffix: {relfilesuffix}]
+
+...
+
+Meet our <<team.adoc#,team>>.
+----
+
+With the help of the `outfilesuffix` assignment, Asciidoctor automatically produces the correct link to the other page.
+
+[source,html]
+----
+Meet our <a href="../team/">team</a>.
+----
+
+Optionally, you can construct the link manually using:
+
+[source,asciidoc]
+----
+Meet our link:{relfileprefix}team{relfilesuffix}[team].
+----
+
+I think you'll agree that using the xref macro is simpler.
+
+=== Controlling the Destination Path
+
+By default, Middleman does not support controlling the destination path from the page data, often called a permalink.
+However, with the addition of a simple extension, it's possible to enable this feature.
+
+Start by adding the following Ruby code to the file [.path]_lib/permalink.rb_.
+
+.lib/permalink.rb
+[source,ruby]
+----
+class Permalink < Middleman::Extension
+  # Run after front matter extension (priority: 20), after the AsciiDoc extension (priority: 30),
+  # and before other third-party extensions (priority: 50).
+  self.resource_list_manipulator_priority = 35
+
+  def manipulate_resource_list resources
+    resources.each do |resource|
+      if !resource.ignored? && (resource.respond_to? :data) && (permalink = resource.data.permalink)
+        permalink = permalink.slice 1, permalink.length if permalink.start_with? '/'
+        resource.destination_path = %(#{permalink}#{resource.ext})
+      end
+    end
+  end
+end
+
+Middleman::Extensions.register :permalink, Permalink
+----
+
+Next, require and activate this extension in the [.path]_config.rb_ file for your site:
+
+[source,ruby]
+----
+require_relative 'lib/permalink'
+activate :permalink
+----
+
+You can now customize the destination path for any AsciiDoc-based page by adding the following attribute entry to the document header:
+
+[source,asciidoc]
+----
+:page-permalink: custom-destination-path
+----
+
+Customize the destination path to your liking.
+The leading forward slash (`/`) is optional.
+
+== Building Your Site
+
+You can now build your site using:
+
+ $ middleman build
+
+or preview it using:
+
+ $ middleman serve
+
+If you're using Bundler, use the following commands instead:
+
+ $ bundle exec middleman build
+ $ bundle exec middleman serve
+
+== Customizing the HTML
+
+You can use templates to customize the HTML Asciidoctor generates for the pages in your site.
+Each template file corresponds to a node in the AsciiDoc document tree (aka AST).
+Template files can be composed in any templating language supported by {uri-tilt}[Tilt].
+
+Follow the steps below to configure Asciidoctor to use custom templates when converting AsciiDoc documents to HTML.
+
+=== Step {counter:step}: Add Required Gems
+
+You'll first need to add the *thread_safe* gem to your [.path]_Gemfile_.
+If you plan to use a template language other than ERB (.erb) or InterpolatedString (.str), you'll also need to add the dependency for the template language.
+We've decided to use Slim for this example, so we need to also add the *slim* gem.
+
+[source,ruby]
+----
+gem 'slim', '~> 3.0.9'
+gem 'thread_safe', '~> 0.3.6'
+----
+
+=== Step {counter:step}: Install New Gems
+
+Now run the `bundle` command to install the new gems.
+
+ $ bundle
+
+=== Step {counter:step}: Create a Templates Folder
+
+Next, create a new folder in your site named [.path]_source/_asciidoc_templates_ to store your templates for AsciiDoc.
+
+ $ mkdir source/_asciidoc_templates
+
+We prefix the folder name with an underscore so it doesn't get included in the sitemap (i.e., Middleman won't look for pages in this folder).
+
+=== Step {counter:step}: Configure Asciidoctor to Load Templates
+
+In your site's [.path]_config.rb_ file, configure Asciidoctor to load the templates by setting the `:template_dirs` option when activating the extension:
+
+[source,ruby]
+----
+activate :asciidoc, template_dirs: 'source/_asciidoc_templates'
+----
+
+=== Step {counter:step}: Compose a Template
+
+The final step is to compose a template.
+We'll be customizing the unordered list node.
+Add a file named [.path]_ulist.html.slim_ to the [.path]_source/_asciidoc_templates_ directory.
+Populate the file with the following contents:
+
+.source/_asciidoc_templates/ulist.html.slim
+[source,slim]
+----
+- if title?
+  figure.list.unordered id=id
+    figcaption=title
+    ul class=[style, role]
+      - items.each do |_item|
+        li
+          span.primary=_item.text
+          - if _item.blocks?
+            =_item.content
+- else
+  ul id=id class=[style, role]
+    - items.each do |_item|
+      li
+        span.primary=_item.text
+        - if _item.blocks?
+          =_item.content
+----
+
+The next time you build your site, Asciidoctor will use your custom template to generate HTML for all unordered lists converted from AsciiDoc.
+
+== Using Asciidoctor Diagram
+
+You can use {uri-asciidoctor-diagram}[Asciidoctor Diagram] (gem: *asciidoctor-diagram*) to generate diagrams from plain text defined in specially marked literal blocks.
+Follow the steps below to enable Asciidoctor Diagram in your Middleman site.
+
+=== Step {counter:diagram-step}: Add the Asciidoctor Diagram Gem
+
+You'll first need to add the *asciidoctor-diagram* gem to your [.path]_Gemfile_.
+
+[source,ruby]
+----
+gem 'asciidoctor-diagram'
+----
+
+If you plan to make diagrams that rely on external commands, such as graphviz (dot), you may need to install additional external applications.
+Consult the {uri-asciidoctor-diagram}#specifying-diagram-generator-paths[Asciidoctor Diagram docs] for further instructions.
+
+=== Step {counter:diagram-step}: Install New Gems
+
+Now run the `bundle` command to install the gem.
+
+ $ bundle
+
+=== Step {counter:diagram-step}: Switch Asciidoctor to Unsafe Mode
+
+This step is very important.
+You must change Asciidoctor to unsafe mode.
+Don't worry, it's not that unsafe.
+It just means that Asciidoctor Diagram will be able to write the generated image to a parent directory of the source file.
+
+[source,ruby]
+----
+activate :asciidoc, safe: :unsafe
+----
+
+=== Step {counter:diagram-step}: Skip Build Clean
+
+To prevent Middleman from removing the generated images when you run the `build` command, you need to add the following function to [.path]_config.rb_.
+
+[source,ruby]
+----
+set :skip_build_clean, proc {|f| f.start_with? 'build/images/' }
+----
+
+This step is necessary since the generated images don't get registered with the sitemap.
+As a result, Middleman inconveniently wants to remove them for you.
+
+=== Step {counter:diagram-step}: Start Making Diagrams
+
+At this point, you're all set to start making diagrams!
+Just create an AsciiDoc page in the source folder and populate it with the following contents:
+
+[source,html]
+----
+= Diagrams FTW!
+
+Here's a document symbol generated by ditaa.
+
+[ditaa,document,png]
+....
++----+
+|{d} |
+|    |
++----+
+....
+----
+
+The next time you generate the site, Asciidoctor Diagram replaces the literal block that has the style `ditaa` with a generated diagram.
+The diagram image ends up in the images folder under the build folder (build/images/document.png).
+The corresponding `<img>` element in the HTML refers to this image using a root-relative path (/images/document.png).
+Asciidoctor Diagram caches information about the image under the [.path]_.asciidoctor/diagram_ folder relative to the project root (MM_ROOT).
+This folder is safe to delete.
+
+=== Limitations
+
+There are limitations with using Asciidoctor Diagram with Middleman.
+Since Asciidoctor Diagram generates the images during AsciiDoc conversion, Middleman doesn't know about these resources (since they don't get registered in Middleman's sitemap).
+As a result, there are two things you must be aware of:
+
+* Diagrams won't be shown when using the preview server (server)
+* Middleman will try to purge the generated images when building the site (build)
+
+To prevent Middleman from purging the diagrams, you need to add the "`skip build clean`" function mentioned above.
+
+== Community
+
+The official community forum for Middleman can be found at {uri-middleman-forum}.
+For questions related to this extension or general questions about AsciiDoc, please post to the Asciidoctor discussion list at {uri-asciidoctor-discuss}.
+
+== Bug Reports
+
+Github Issues are used for managing bug reports and feature requests.
+If you run into issues, please search the issues and submit new problems in the project's {uri-issues}[issue tracker].
+
+The best way to get quick responses to your issues and swift fixes to your bugs is to submit detailed bug reports, include test cases and respond to developer questions in a timely manner.
+Even better, if you know Ruby, you can submit {uri-help-pr}[pull requests] containing Cucumber Features which describe how your feature should work or exploit the bug you are submitting.
+
+== How to Run Tests
+
+The tests are based on Cucumber.
+Here's how to clone the project and run the tests.
+
+. Clone the repository:
++
+[subs=attributes+]
+ $ git clone {uri-repo} &&
+   cd "`basename $_`"
+
+. Install Bundler (if not already installed):
+
+ $ gem install bundler
+
+. Run Bundler (from the project root) to install the gem dependencies:
+
+ $ bundle
+
+. Run test cases (based on Cucumber) using Rake:
+
+ $ bundle exec rake cucumber
+
+== Copyright
+
+Copyright (C) 2014-2018 Dan Allen and the Asciidoctor Project.
+Free use of this software is granted under the terms of the MIT License.
+For the full text of the license, see the <<LICENSE.adoc#,LICENSE>> file.

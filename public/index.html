@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>uyuni-project</title>
+<meta name="description" content="A new way to manage your IT infrastructure, from configuration to updates, from audit to compliance, and from computers to containers, everything with a complete free software solution.">
+<meta name="author" content="jcayouette">
+<meta name="copyright" content="jcayouette (c) 2018">
+<meta name="og:site_name" content="uyuni-project">
+<meta name="og:type" content="website">
+<meta name="og:title" content="uyuni-project">
+<meta name="og:url" content="https://www.uyuni-project.org//">
+<meta name="og:image" content="https://www.uyuni-project.org//img/site-image.png">
+<meta name="og:description" content="A new way to manage your IT infrastructure, from configuration to updates, from audit to compliance, and from computers to containers, everything with a complete free software solution.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.uyuni-project.org//img/site-image.png">
+<meta name="twitter:site">
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+<script>if(location.host=="antora.netlify.com")location.host="antora.org"</script><link href="/css/site.css" rel="stylesheet">
+</head>
+<body class="home-page">
+<section class="hero is-primary is-bold is-fullheight">
+<header class="header hero-head" role="banner">
+<nav class="navbar is-transparent" role="navigation" aria-label="main navigation">
+<div class="container">
+<div class="navbar-brand">
+<a href="/" class="navbar-item">uyuni-project</a>
+<div class="navbar-burger burger" data-target="topbar-nav">
+<span></span>
+<span></span>
+<span></span>
+</div>
+</div>
+<div id="topbar-nav" class="navbar-end navbar-menu"><a href="localhost:8000" class="navbar-item external">Docs</a><a href="https://twitter.com/uyuniproject?lang=en" class="navbar-item external"><span class="icon"><i class="fa fa-lg fa-twitter"></i></span></a><a href="https://github.com/uyuni-project/uyuni" class="navbar-item external"><span class="icon"><i class="fa fa-lg fa-github"></i></span></a>
+</div>
+</div>
+</nav>
+</header>
+<div class="hero-body">
+<div class="container" style="margin-top: 1.5rem">
+<h1 class="title">
+Uyuni
+img src=(asset_url 'logo.svg', 'img')
+</h1>
+<p class="subtitle">
+Architect your IT infrastructure
+</p>
+<p class="subtitle is-size-4">
+Uyuni includes Salt OSS built-in for Scalable, flexible, intelligent IT orchestration and automation for installing, updating and patching systems and packages.  Work with containers, build images and manage distribution repositories, then perform auditing to meet compliance standards, all packaged as a free software solution.
+</p>
+</div>
+</div>
+<div class="hero-footer">
+<div class="container has-text-centered" style="margin-bottom: 3rem">
+<h3 class="subtitle is-size-5" style="margin-bottom: 1.25rem">
+Stable release available now!
+</h3>
+<p>
+<a class="button is-white is-outlined" style="margin-right: 0.75rem" href="http://beta.suse.com/private/uyuni-project/"><span class="icon"><i class="fa fa-download"></i></span><span>Get 4.0</span></a><a class="button is-white is-outlined" href="https://gitlab.com/antora/antora"><span class="icon"><i class="fa fa-github"></i></span><span>View the Source</span></a>
+</p>
+</div>
+</div>
+</section>
+<section id="feature" class="section is-alternate">
+<div class="container">
+<div class="columns is-desktop">
+<div class="column">
+<h3 class="title">
+Introducing Uyuni
+</h3>
+</div>
+</div>
+<div class="columns is-desktop">
+<div class="columns is-multiline">
+<div class="column is-11 is-offset-1">
+<h3 class="subtitle">
+Why Uyuni?
+</h3>
+<p class="desc">
+Uyuni utilizes Salt for configuration management, thereby inheriting its name: Uyuni refers to the world’s largest Salt flat, Salar de Uyuni in Southwest Bolivia.
+</p>
+</div>
+<div class="column is-11 is-offset-1">
+<h3 class="subtitle">
+Workspaces that fit team and content requirements
+</h3>
+<p class="desc">
+Since documentation files can be stored in separate repositories, the teams that maintain them can use the administration policies, version schema, and release schedule that works for them.
+</p>
+</div>
+</div>
+<div class="column is-vcentered is-half">
+<figure class="image is-4by3">
+<img src="/img/logo.svg">
+</figure>
+</div>
+</div>
+<div class="columns is-desktop">
+<div class="column is-vcentered is-half">
+<figure class="image is-4by3">
+<img src="/img/cantocore_shipping_container.svg">
+</figure>
+</div>
+<div class="columns is-multiline" style="padding-top: 3rem">
+<div class="column is-11 is-offset-1">
+<h3 class="subtitle">
+Question: Where I can find Uyuni source code?
+</h3>
+<p class="desc">
+The find the source at the uyuni-project git repository:
+</p>
+<a href="https://github.com/uyuni-project/uyuni">uyuni-project</a>
+</div>
+<div class="column is-11 is-offset-1">
+<h3 class="subtitle">
+Remote and local, private and public, bare and non-bare
+</h3>
+<p class="desc">
+Antora can collect files from a combination of local, remote public, and remote private repositories over any protocol supported by git.
+</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="feature" class="section is-alternate">
+<div class="container">
+<div class="columns is-desktop">
+<div class="column">
+<h3 class="title">
+Site Orchestration for Everyone
+</h3>
+</div>
+</div>
+<div class="columns is-desktop">
+<div class="column is-vcentered is-half">
+<figure class="image is-4by3">
+<img src="/img/salt.svg">
+</figure>
+</div>
+<div class="columns is-vcentered is-multiline" style="align-content: center">
+<div class="column is-11 is-offset-1">
+<h3 class="subtitle">
+Antora’s playbook
+</h3>
+<p class="desc">
+With an Antora playbook, anyone can easily assemble and generate a documentation site. A playbook is a straight-forward set of concise instructions that tell Antora what documentation to assemble, where to find it, and what UI to apply to it.
+</p>
+</div>
+<div class="column is-11 is-offset-1" style="margin-top: 1rem">
+<h3 class="subtitle">
+Run your playbook using the Antora CLI
+</h3>
+<p class="desc">
+Just point the Antora CLI at your playbook to configure and execute the default site generator. Out comes your site!
+</p>
+</div>
+</div>
+</div>
+<div class="columns is-desktop">
+<div class="column is-offset-1">
+<h3 class="subtitle">
+Site remixes for any occasion
+</h3>
+<p class="desc">
+With Antora’s playbooks, you can control which versions of the documentation get published to a site. You can even tell Antora to use uncommitted changes when generating the site on a local machine.
+</p>
+</div>
+<div class="column">
+<h3 class="subtitle">
+Open architecture
+</h3>
+<p class="desc">
+Antora features an open architecture. Despite providing an opinionated default site generator, you’re free to reuse the core components to assemble your own custom generator pipeline.
+</p>
+</div>
+</div>
+<div class="columns is-desktop">
+<div class="column is-offset-1">
+<h3 class="subtitle">
+Multi-channel publishing
+</h3>
+<p class="desc">
+Antora automatically adapts a docs site to its publishing environment. Whether the site is published locally, to revolving testing, QA, or staging environments, or to an alternate URL for a campaign or event, the site is fully functional. This environment portability is possible because Antora’s cross referencing system isn’t based on a hardcoded base URL or system path.
+</p>
+</div>
+</div>
+</div>
+</section>
+<section id="feature" class="section">
+<div class="container">
+<div class="columns is-vcentered is-desktop">
+<div class="column">
+<h3 class="title">
+Minimal Markup, Maximum Functionality
+</h3>
+</div>
+</div>
+<div class="columns is-vcentered is-desktop">
+<div class="column is-offset-1">
+<p class="desc">
+Mark up content with AsciiDoc’s lightweight yet comprehensive syntax.
+</p>
+<ul class="columns is-multiline">
+<li class="column is-half tick">
+Bold, italic, monospace, highlight, and custom text roles
+</li>
+<li class="column is-half tick">
+Special characters, font icons, and UI references
+</li>
+<li class="column is-half tick">
+Ordered, unordered, definition, and interactive task lists
+</li>
+<li class="column is-half tick">
+YouTube, Vimeo, and self-hosted videos with display and user-control options
+</li>
+<li class="column is-half tick">
+Images and icons
+</li>
+<li class="column is-half tick">
+Tables, notices, quotes, and sidebars
+</li>
+<li class="column is-half tick">
+Metadata and taxonomy
+</li>
+<li class="column is-half tick">
+Cross references, page-to-page and in-page
+</li>
+<li class="column is-half tick">
+Include directives with tags
+</li>
+<li class="column is-half tick">
+Table of contents
+</li>
+<li class="column is-half tick">
+Source code with callouts, callout icons, wrap and scroll controls, and syntax highlighting
+</li>
+<li class="column is-half tick">
+Page, section, asset, block, and line controls to optimize reader experience
+</li>
+</ul>
+</div>
+</div>
+<div class="columns is-desktop">
+<div class="column is-offset-1">
+<h3 class="subtitle">
+No markup plugins, extensions, or shortcodes needed
+</h3>
+<p class="desc">
+AsciiDoc’s extensive feature set is available right out of the box with Antora. There’s no need to find, install, and manage plugins, extensions, or scripts to add basic capabilities to the syntax.
+</p>
+</div>
+<div class="column">
+<h3 class="subtitle">
+No flavor lock-in
+</h3>
+<p class="desc">
+Documentation written with AsciiDoc works with all of the software and tools in the Asciidoctor ecosystem. You don’t need to worry about incompatible syntax or lost functionality.
+</p>
+</div>
+</div>
+<div class="columns is-desktop">
+<div class="column is-offset-1">
+<h3 class="subtitle">
+Tooling
+</h3>
+<p class="desc">
+Write and preview AsciiDoc with text editors and IDEs like Atom, Brackets, and IntelliJ. And GitLab and GitHub render AsciiDoc files right in the browser.
+</p>
+</div>
+<div class="column">
+<h3 class="subtitle">
+Extension API
+</h3>
+<p class="desc">
+Custom syntax our output transformations can be added as discrete extensions with Asciidoctor’s extension API.
+</p>
+</div>
+</div>
+<div class="columns is-vcentered is-desktop">
+<div class="column is-offset-1">
+<h3 class="subtitle">
+Responsive maintainers
+</h3>
+<p class="desc">
+Antora’s core developers help lead the Asciidoctor organization, home of the AsciiDoc syntax and Asciidoctor, the AsciiDoc processor. Due to this direct relationship, Antora is always in sync with AsciiDoc and Asciidoctor features.
+</p>
+</div>
+</div>
+</div>
+</section>
+<section id="feature" class="section is-alternate">
+<div class="container">
+<div class="columns is-desktop">
+<div class="column">
+<h3 class="title">
+Cross References
+</h3>
+</div>
+</div>
+<div class="columns is-desktop">
+<div class="column is-offset-1">
+<h3 class="subtitle">
+Decoupled from filesystems, environments, and URLs
+</h3>
+<p class="desc">
+It doesn’t matter where you publish your documentation site &mdash; on a local machine, a staging environment, or a production environment &mdash; the page-to-page cross references always work. That’s because Antora’s page referencing system isn’t coupled to filesystem paths or URLs.
+</p>
+</div>
+</div>
+</div>
+</section>
+<section id="feature" class="section">
+<div class="container">
+<div class="columns is-desktop">
+<div class="column">
+<h3 class="title">
+Site Navigation
+</h3>
+</div>
+</div>
+<div class="columns is-desktop">
+<div class="column is-offset-1">
+<h3 class="subtitle">
+Described using AsciiDoc lists
+</h3>
+<p class="desc">
+A site’s navigation is described by one or more AsciiDoc lists that are stored alongside your documentation files. Links are added using the same cross referencing syntax used in the pages themselves.
+</p>
+</div>
+<div class="column">
+<h3 class="subtitle">
+No content or organization restrictions
+</h3>
+<p class="desc">
+Add normal text, images, icons, and external links to the navigation. Order and nest the links in the arrangement of your choice.
+</p>
+</div>
+</div>
+</div>
+</section>
+<section id="feature" class="section is-alternate">
+<div class="container">
+<div class="columns is-desktop">
+<div class="column">
+<h3 class="title">
+Site UI &amp; Theme
+</h3>
+</div>
+</div>
+<div class="columns is-desktop">
+<div class="column is-offset-1">
+<h3 class="subtitle">
+Discrete UI
+</h3>
+<p class="desc">
+Site UIs are stored in separate repositories so that developing, testing, and publishing new or updated themes has no impact on your documentation files or their repositories. Antora retrieves the specified site UI just like it fetches the content files from their repositories.
+</p>
+</div>
+</div>
+<div class="columns is-desktop">
+<div class="column is-offset-1">
+<h3 class="subtitle">
+Web team workspaces
+</h3>
+<p class="desc">
+Web teams can use their preferred repository structure, development workflow and release schedule since the site UI isn’t stored with the documentation.
+</p>
+</div>
+<div class="column">
+<h3 class="subtitle">
+Hot swap UIs
+</h3>
+<p class="desc">
+Switch between site UIs just by changing the UI address in the playbook.
+</p>
+</div>
+</div>
+</div>
+</section>
+<section id="feature" class="section">
+<div class="container">
+<div class="columns is-desktop">
+<div class="column">
+<h3 class="title">
+URLs &amp; Routes
+</h3>
+</div>
+</div>
+<div class="columns is-desktop">
+<div class="column is-offset-1">
+<h3 class="subtitle">
+URLs for humans and SEO
+</h3>
+<p class="desc">
+A page’s URL is derived from its filename, yet still isolated from its full filesystem path.
+</p>
+</div>
+<div class="column">
+<h3 class="subtitle">
+Route and redirect controls
+</h3>
+<p class="desc">
+Routes and redirects can be specified at the site, component, version, module, and page level.
+</p>
+</div>
+</div>
+</div>
+</section>
+<section id="feature" class="section">
+<div class="container">
+<div class="columns is-desktop">
+<div class="column">
+<h3 class="title">
+Metadata &amp; Taxonomy
+</h3>
+</div>
+</div>
+<div class="columns is-desktop">
+<div class="column is-offset-1">
+<h3 class="subtitle">
+Multi-level metadata controls
+</h3>
+<p class="desc">
+Add and remove metadata at the site, component, module, and page level using AsciiDoc attributes.
+</p>
+</div>
+<div class="column">
+<h3 class="subtitle">
+Built-in and custom taxonomy types
+</h3>
+<p class="desc">
+Assign taxonomy types and values at the site or page level.
+</p>
+</div>
+</div>
+</div>
+</section><footer class="footer">
+<div class="container copy">
+<div class="columns">
+<div class="column">
+<h3 class="is-size-3">
+Antora
+</h3>
+<p>
+A documentation pipeline that enables docs, product, and engineering teams to create, manage, remix, and publish documentation sites composed in AsciiDoc and sourced from multiple versioned content repositories.
+</p>
+<p class="has-text-grey is-small">
+&#169; 2018 OpenDevise Inc. and individual contributors to Antora.
+</p>
+<p class="has-text-grey is-small">
+<a href="/legal/terms-of-use/">Terms of Use</a> - <a href="/legal/privacy-policy/">Privacy</a> - <a href="/legal/">Legal</a>
+</p>
+</div>
+<div class="column oss">
+<h4>
+Antora OSS
+</h4>
+<div class="box">
+<div class="level is-mobile">
+<div class="level-left">
+<p class="title is-size-5">
+<a href="https://gitlab.com/antora/antora">Antora</a>
+</p>
+</div>
+<div class="level-right">
+<a href="https://gitlab.com/antora/antora"><i class="fa fa-gitlab"></i></a>
+</div>
+</div>
+<p>
+A modular, multi-repository documentation site generator designed for DevOps-savvy documentation teams who are looking to get the most from their AsciiDoc content.
+</p>
+</div>
+<div class="box">
+<div class="level is-mobile">
+<div class="level-left">
+<p class="title is-size-5">
+<a href="https://gitlab.com/antora/antora-ui-default">Antora Default UI</a>
+</p>
+</div>
+<div class="level-right">
+<a href="https://gitlab.com/antora/antora-ui-default"><i class="fa fa-gitlab"></i></a>
+</div>
+</div>
+<p>
+An archetype UI for documentation sites assembled and published by Antora.
+</p>
+</div>
+</div>
+<div class="column oss">
+<h4>
+Asciidoctor OSS
+</h4>
+<div class="box">
+<div class="level is-mobile">
+<div class="level-left">
+<p class="title is-size-5">
+<a href="http://asciidoctor.org">Asciidoctor</a>
+</p>
+</div>
+<div class="level-right">
+<a href="https://github.com/asciidoctor"><i class="fa fa-github"></i></a>
+</div>
+</div>
+<p>
+A fast text processor and publishing toolchain for converting AsciiDoc content to HTML5, DocBook, PDF, and other formats.
+</p>
+</div>
+<div class="box">
+<div class="level is-mobile">
+<div class="level-left">
+<p class="title is-size-5">
+<a href="https://github.com/asciidoctor/asciidoctor.js">Asciidoctor.js</a>
+</p>
+</div>
+<div class="level-right">
+<a href="https://github.com/asciidoctor/asciidoctor.js"><i class="fa fa-github"></i></a>
+</div>
+</div>
+<p>
+Asciidoctor.js brings AsciiDoc to the JavaScript world.
+</p>
+</div>
+</div>
+</div>
+</div>
+</footer><script src="/js/site.js"></script><script>!function(e,a,t,n,c,o,s){e.GoogleAnalyticsObject=c,e[c]=e[c]||function(){(e[c].q=e[c].q||[]).push(arguments)},e[c].l=1*new Date,o=a.createElement(t),s=a.getElementsByTagName(t)[0],o.async=1,o.src=n,s.parentNode.insertBefore(o,s)}(window,document,"script","//www.google-analytics.com/analytics.js","ga"),ga("create","UA-112324747-1","auto"),ga("send","pageview");</script>
+</body>
+</html>
