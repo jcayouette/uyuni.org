@@ -1,23 +1,7 @@
-= Antora Project Site
-// Settings:
-:hide-uri-scheme:
-ifdef::env-gitlab[:badges:]
-// URIs:
-:uri-letsencrypt: https://letsencrypt.org
-:uri-letsencrypt-article: https://fedoramagazine.org/letsencrypt-now-available-fedora/
-:uri-netlify: https://www.netlify.com
-:uri-netlify-deploys: https://app.netlify.com/sites/antora/deploys
-:uri-node: https://nodejs.org
-:uri-opendevise: https://opendevise.com
-:uri-project: https://antora.org
-:uri-ruby: https://www.ruby-lang.org
+= Uyuni Project Site
 
-ifdef::badges[]
-image:https://gitlab.com/antora/antora.org/badges/master/pipeline.svg[CI status,116,20,link=https://gitlab.com/antora/antora.org/pipelines]
-image:https://www.netlify.com/img/global/badges/netlify-dark.svg[Deploy Status,45,20,link={uri-netlify-deploys}]
-endif::[]
 
-This repository contains the source materials for the Antora project site published at {uri-project}.
+This repository contains the source materials for the Uyuni project site published at {uri-project}.
 
 == Quickstart
 
@@ -49,32 +33,3 @@ The deploy job executes the following command:
 
 The version of Ruby and Node is set using environment variables RUBY_VERSION and NODE_VERSION, respectively, in the Netlify configuration.
 
-The deploy logs for antora.org can be viewed at {uri-netlify-deploys}.
-
-=== DNS
-
-There are two DNS records that point antora.org and www.antora.org to the Netlify servers:
-
- @ 3600 IN A 104.198.14.52
- www 3600 IN CNAME antora.netlify.com.
-
-Netlify handles the redirect from www to the root domain.
-
-== TLS Certificate (https)
-
-The TLS certificate for antora.org and www.antora.org was issued by {uri-netlify}[Netlify] using {uri-letsencrypt}[Let's Encrypt] and is automatically renewed.
-
-Verify the certificate is valid using:
-
- $ curl -vI https://antora.org
-
-Look for `CN=antora.org` under the "`Server certificate`" section.
-
-Netlify redirects all traffic to HTTPS automatically (i.e., it forces HTTPS).
-
-== Copyright and License
-
-Copyright (C) 2017-2018 {uri-opendevise}[OpenDevise Inc.] and individual contributors to antora.org.
-
-Except where otherwise noted, antora.org, Antora, and the Antora UI, are licensed under the https://www.mozilla.org/en-US/MPL/2.0/[Mozilla Public License Version 2.0] (MPL-2.0).
-See link:LICENSE[] to view the full license text.
