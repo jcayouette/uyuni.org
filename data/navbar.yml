@@ -1,0 +1,11 @@
+items:
+#- page_id: index
+#  title: Home
+#- page_id: about/index
+# title: About
+- url: localhost:8000
+  title: Docs
+- url: https://twitter.com/uyuniproject?lang=en
+  title: <span class="icon"><i class="fa fa-lg fa-twitter"></i></span>
+- url: https://github.com/uyuni-project/uyuni
+  title: <span class="icon"><i class="fa fa-lg fa-github"></i></span>

@@ -1,0 +1,1 @@
+include::https://gitlab.com/opendevise/opendevise.com/raw/master/source/legal/privacy-policy.adoc[]

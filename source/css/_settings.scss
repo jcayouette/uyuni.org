@@ -1,0 +1,71 @@
+@function rem-to-px($rems) {
+  @return ($rems * $body-size) / ($rems * 0 + 1);
+}
+
+$body-size: 16px;
+$body-size-mobile: 0.9375 * $body-size;
+$family-primary: Montserrat, sans-serif;
+$family-monospace: 'Roboto Mono', monospace;
+$primary: rgba(0, 188, 212, 255);
+$primary-light: rgba(173, 229, 240, 255);
+$primary-dark: rgba(196, 62, 0, 255);
+$primary-gray: rgba(255, 255, 255, 255);
+$primary-bis: rgba(236, 64, 122, 255);
+$primary-ter: rgba(74, 20, 140, 255);
+$primary-ter-gray: rgba(80, 80, 80, 255);
+$primary-ter-light: rgba(124, 67, 189, 255);
+$primary-ter-light-gray: rgba(128, 128, 128, 255);
+$primary-ter-dark: rgba(18, 0, 94, 255);
+$gray-light: rgba(211, 211, 211, 255);
+$text: $black-ter;
+
+$dark: $black-ter;
+$dark-invert: $white-ter;
+
+$link: $primary;
+
+$heading-family: Montserrat, sans-serif;
+$heading-weight: $weight-semibold;
+
+$title-color: $text;
+$title-family: $heading-family;
+$title-weight: $weight-semibold;
+
+$subtitle-family: $heading-family;
+
+$prose-family: Montserrat, sans-serif;
+//$prose-family: 'Noto Serif', serif;
+//$prose-color: rgba(0, 0, 0, 0.84);
+$prose-color: $text;
+
+$section-padding-ends: 3rem;
+$section-padding-sides: 1.25rem;
+$section-padding-ends-small: 1.5rem;
+$section-padding-ends-medium: 9rem;
+$section-padding-ends-large: 18rem;
+$section-padding: $section-padding-ends $section-padding-sides;
+$section-padding-small: $section-padding-ends-small $section-padding-sides;
+$section-padding-medium: $section-padding-ends-medium $section-padding-sides;
+$section-padding-large: $section-padding-ends-large $section-padding-sides;
+
+$gap: 20px;
+$column-gap: 0.75rem;
+$column-gap-px: rem-to-px($column-gap);
+
+$container-tablet: 769px;
+// 15px accounts for the width of the scrollbar
+$container-tablet-max: $container-tablet - (2 * rem-to-px($section-padding-sides)) - 15px;
+$container-desktop: 960px;
+$container-widescreen: 1152px;
+$container-fullhd: 1344px;
+
+$tablet: $container-tablet;
+$desktop: $container-desktop + (2 * $gap);
+$widescreen: $container-widescreen + (2 * $gap);
+$fullhd: $container-fullhd + (2 * $gap);
+
+@function colspan-width($container-width, $cols, $span) {
+  $inner-column-gap-px: 2 * $column-gap-px;
+  $column-width: ($container-width - $inner-column-gap-px * ($cols - 1)) / $cols;
+  @return $column-width * $span + ($span - 1) * $inner-column-gap-px;
+}

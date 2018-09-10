@@ -1,0 +1,13 @@
+/*Uyuni Project*/
+
+/* TEAM */
+Doc Lead: Joseph Cayouette
+Twitter: @jcayouette
+From: NUE, Germany
+
+/* SITE */
+Language: English
+Standards: HTML5, CSS3, JavaScript
+Components: Bulma, Font Awesome, Google Fonts, Google Analytics
+Software: Linux, Chrome, Firefox, Ruby, Middleman, Asciidoctor, Tilt, Sprockets, Slim, Sass, Git, VIM, Inkscape, Gimp, Rake, RVM, Bundler, GitLab CI, icoutils
+Source: https://github.com/uyuni-project/uyuni-project.github.io

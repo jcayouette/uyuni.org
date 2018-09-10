@@ -1,0 +1,6 @@
+title: 'uyuni-project'
+baseurl: https://www.uyuni-project.org/
+description: A new way to manage your IT infrastructure, from configuration to updates, from audit to compliance, and from computers to containers, everything with a complete free software solution.
+keywords:
+author: jcayouette
+copyright: jcayouette (c) {year}

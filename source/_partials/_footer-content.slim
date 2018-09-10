@@ -1,0 +1,35 @@
+footer.footer
+  .container.copy
+    .columns
+      .column
+        h3.is-size-3 Uyuni
+        p Uyuni utilizes Salt for configuration management, thereby inheriting its name: Uyuni refers to the world’s largest Salt flat, Salar de Uyuni in Southwest Bolivia.
+        p.has-text-grey.is-small
+          |&#169; #{Time.now.year} SUSE and individual contributors to Uyuni.
+        p.has-text-grey.is-small
+          => link_to 'Terms of Use', 'legal/terms-of-use'
+          '-
+          => link_to 'Privacy', 'legal/privacy-policy'
+          '-
+          = link_to 'Legal', 'legal/index'
+      .column.oss
+        h4 Uyuni Project Repos
+        / NOTE level-item has margin problems, so don't use
+        .box
+          .level.is-mobile
+            .level-left : p.title.is-size-5 : a href='https://github.com/uyuni-project/uyuni' Uyuni
+            .level-right : a href='https://github.com/uyuni-project/uyuni' : i.fa.fa-github
+          p The uyuni-project source code repository.
+
+      .column.oss
+        h4 Uyuni Docs
+        / NOTE level-item has margin problems, so don't use
+        .box
+          .level.is-mobile
+            .level-left : p.title.is-size-5 : a href='https://github.com/uyuni-project/uyuni-docs' Uyuni Docs
+            .level-right : a href='https://github.com/uyuni-project/uyuni-docs' : i.fa.fa-github
+          p The uyuni-project documentation sources.
+          ul
+            li: a(href='https://github.com/uyuni-project/uyuni-docs-publisher') Uyuni Docs Publisher
+            li: a(href='https://github.com/uyuni-project/uyuni-docs-ui') Uyuni Docs UI
+            /ul>
