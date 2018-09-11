@@ -3,9 +3,12 @@ items:
 #  title: Home
 #- page_id: about/index
 # title: About
+# Add doc URL and FAQ URL
 
-- url: localhost:8000
+- url: Docs
   title: Docs
+- url: FAQ
+  title: FAQ
 - url: http://webchat.freenode.net/?channels=%23uyuni
   title: <span class="icon"><i class="fa fa-lg fa-hashtag"></i></span>
 - url: https://twitter.com/uyuniproject?lang=en
