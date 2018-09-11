@@ -5,7 +5,7 @@ items:
 # title: About
 # Add doc URL and FAQ URL
 
-- url: Docs
+- url: https://www.uyuni-project.org/uyuni-docs/uyuni/Master/index.html
   title: Docs
 - url: FAQ
   title: FAQ
