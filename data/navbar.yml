@@ -3,8 +3,13 @@ items:
 #  title: Home
 #- page_id: about/index
 # title: About
+
 - url: localhost:8000
   title: Docs
+- url: https://lists.opensuse.org/uyuni-announce/
+  title: <span class="icon"><i class="fa fa-lg fa-envelope"></i></span>
+- url: http://webchat.freenode.net/?channels=%23uyuni
+  title: <span class="icon"><i class="fa fa-lg fa-hashtag"></i></span>
 - url: https://twitter.com/uyuniproject?lang=en
   title: <span class="icon"><i class="fa fa-lg fa-twitter"></i></span>
 - url: https://github.com/uyuni-project/
